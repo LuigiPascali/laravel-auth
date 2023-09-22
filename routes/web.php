@@ -1,10 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
-
-// Controllers
-use App\Http\Controllers\MainController;
-use App\Http\Controllers\Admin\MainController as AdminMainController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,15 +15,15 @@ use App\Http\Controllers\Admin\MainController as AdminMainController;
 |
 */
 
-Route::get('/', [MainController::class, 'index'])->name('home');
+Route::get('/', function () {
+    return view('welcome');
+});
 
-Route::prefix('admin')
-    ->name('admin.')
-    ->middleware(['auth', 'verified'])
-    ->group(function () {
 
-    Route::get('/dashboard', [AdminMainController::class, 'dashboard'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->name('admin.')->prefix('admin')->group( function(){
 
+    Route::get('/dashboard', [DashboardController::class , 'index'])->name('dashboard');
+    Route::resource('projects', ProjectController::class);
 });
 
 require __DIR__.'/auth.php';

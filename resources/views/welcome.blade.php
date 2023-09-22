@@ -9,7 +9,6 @@
                         Welcome!
                     </h1>
                     <br>
-                    La welcome page è una pagina pubblica (NON protetta)
                 </div>
             </div>
         </div>
